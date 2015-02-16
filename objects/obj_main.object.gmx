@@ -59,6 +59,7 @@ dealercardsuit = ds_list_create();
 flipped = false;
 insure = false;
 insoption = true;
+tobbiernoob = true;
 </string>
           </argument>
         </arguments>
