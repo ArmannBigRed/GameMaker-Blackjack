@@ -56,10 +56,6 @@ dealercards = ds_list_create();
 dealercardsvalue = ds_list_create();
 playercardsuit = ds_list_create();
 dealercardsuit = ds_list_create();
-hand1 = ds_list_create();
-hand2 = ds_list_create();
-hand1suit = ds_list_create();
-hand2suit = ds_list_create();
 flipped = false;
 insure = false;
 insoption = true;
@@ -458,7 +454,12 @@ if (global.gameon) {
     if (global.makeobj &amp;&amp; dealeronhand == 2 &amp;&amp; playerhandvalue != 21) {
         var hit = instance_create(300, 320, obj_hitbutton)
         var stand = instance_create(380, 320, obj_standbutton)
-        var double = instance_create(460, 320, obj_doublebutton)
+        if (global.money &gt;= (global.pot)) {
+            var double = instance_create(460, 320, obj_doublebutton)
+        }
+        else {
+            //TODO add some tooltip letting the player know he doesnt have money for double
+        }
         global.makeobj = false;
     }
 }
@@ -603,13 +604,10 @@ if (global.noinsurance) {
             <kind>1</kind>
             <string>///Double
 if (global.double) {
-    if (global.money &gt; (global.pot * 2)) {
         global.playerdealnewcard += 1;
         global.money -= global.pot;
         global.pot = global.pot * 2;
-    } else {
-        //TODO add some tooltip letting the player know he doesnt have money for double
-    }
+   
 }
 </string>
           </argument>
@@ -694,6 +692,51 @@ if (global.gameon) {
         j += 1;
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw Cards
+/*
+***
+1 - 6 split card up into 9 sections, draw icon in the middle of correct section
+***
+7 - 8 same 9 sections but place middle icons on the line of top and middle box
+so same x axis but higher y axis
+***
+9 - 10 split cards into 12 sections, fill outer 8 sections
+9 place icon in the middle of the middle (lol)
+10 place icons on the line between the top and second top box and same on the bottom
+again same x axis but icon not placed in the middle
+***
+facecards get their own image
+***
+*/
+
+/*
+for(i = 0; i &lt; playeronhand; i+=1)
+{
+    draw_sprite(spr_card, 0, x, y);
+    
+    
+}
+*/
 </string>
           </argument>
         </arguments>

@@ -28,6 +28,8 @@
     <script>scripts\scr_endgame.gml</script>
     <script>scripts\TODOLISTDELETEAFTER.gml</script>
     <script>scripts\scr_killplaybuttons.gml</script>
+    <script>scripts\scr_convertsuittospr.gml</script>
+    <script>scripts\scr_convertvaluetospr.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\obj_main</object>
