@@ -56,9 +56,12 @@ dealercards = ds_list_create();
 dealercardsvalue = ds_list_create();
 playercardsuit = ds_list_create();
 dealercardsuit = ds_list_create();
+drawplayercards = ds_list_create();
+drawdealercards = ds_list_create();
 flipped = false;
 insure = false;
 insoption = true;
+
 </string>
           </argument>
         </arguments>
@@ -241,6 +244,7 @@ while (playeronhand &lt; global.playerdealnewcard) {
     //assign the temp variable card the value of the next card in the deck
     var card = 0;
     card = ds_list_find_value(deck, nextcard);
+    ds_list_add(drawplayercards, card);
     ds_list_add(playercardsuit, scr_getsuit(card));
     ds_list_add(playercards, scr_getvalue(card));
 
@@ -307,6 +311,7 @@ if (global.gameon) {
         //assign the temp variable card the value of the next card in the deck
         var card = 0;
         card = ds_list_find_value(deck, nextcard);
+        ds_list_add(drawdealercards, card);
         nextcard += 1;
         //Handle the face down card (dealers second card)
         if (dealeronhand == 2) {
@@ -713,30 +718,29 @@ if (global.gameon) {
           <argument>
             <kind>1</kind>
             <string>///Draw Cards
-/*
-***
-1 - 6 split card up into 9 sections, draw icon in the middle of correct section
-***
-7 - 8 same 9 sections but place middle icons on the line of top and middle box
-so same x axis but higher y axis
-***
-9 - 10 split cards into 12 sections, fill outer 8 sections
-9 place icon in the middle of the middle (lol)
-10 place icons on the line between the top and second top box and same on the bottom
-again same x axis but icon not placed in the middle
-***
-facecards get their own image
-***
-*/
 
-/*
+
+cardsx = 100;
+cardsy = 150;
 for(i = 0; i &lt; playeronhand; i+=1)
-{
-    draw_sprite(spr_card, 0, x, y);
-    
-    
+{   
+    draw_sprite_ext(spr_cards, ds_list_find_value(drawplayercards, i), cardsx, cardsy, 1, 1,0,c_white,1);
+    cardsx += 45;
+    cardsy += 20;
 }
-*/
+cardsx = 300;
+cardsy = 150;
+for(j = 0; j &lt; dealeronhand; j += 1) {   
+    if(!flipped &amp;&amp; j == 1) {
+        draw_sprite_ext(spr_cards, 52, cardsx, cardsy, 1, 1,0,c_white,1);
+    } else {
+        draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, j), cardsx, cardsy, 1, 1,0,c_white,1);
+    }
+    cardsx += 45;
+    cardsy += 20;
+}
+
+
 </string>
           </argument>
         </arguments>

@@ -1,8 +1,8 @@
 var card = argument0
 
 
-switch (card % 13) {
-    case 0:
+switch (card % 13 + 1) {
+    case 13:
         return 'K'
     case 11:
         return 'J'
@@ -11,5 +11,7 @@ switch (card % 13) {
     case 1:
         return 'A'
     default:
-        return card % 13;
+        return card % 13 + 1;
 }
+
+

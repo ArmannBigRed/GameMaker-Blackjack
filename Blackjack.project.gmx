@@ -17,7 +17,7 @@
     <sprite>sprites\spr_insurance</sprite>
     <sprite>sprites\spr_noinsurance</sprite>
     <sprite>sprites\spr_doublebutton</sprite>
-    <sprite>sprites\spr_splitbutton</sprite>
+    <sprite>sprites\spr_cards</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

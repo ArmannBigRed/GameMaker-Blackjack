@@ -19,3 +19,9 @@ fixed a bug with you not being able to double while your money was less than or 
 
 Player blackjack now pays out 3:1
 fixed some win condition outputs such as dealer blackjack showing up on dealer 21
+
+***-1.1.2***
+
+Added playing card assets
+Added a way to display cards
+Minor changes and bugfixes

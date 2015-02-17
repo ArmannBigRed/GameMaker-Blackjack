@@ -66,6 +66,8 @@ else
         ds_list_clear(playercardsuit);
         ds_list_clear(dealercardsuit);
         ds_list_clear(dealercardsvalue);
+        ds_list_clear(drawplayercards);
+        ds_list_clear(drawdealercards);
         global.playerdealnewcard = 0;
         global.dealerdealnewcard = 0;
         global.stand = false;
