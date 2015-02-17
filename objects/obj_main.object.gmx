@@ -612,7 +612,6 @@ if (global.double) {
         global.playerdealnewcard += 1;
         global.money -= global.pot;
         global.pot = global.pot * 2;
-   
 }
 </string>
           </argument>
@@ -650,6 +649,7 @@ var xx = 500;
 var i = 0;
 var j = 0;
 var f = 0;
+draw_set_colour(c_white);
 
 if (global.gameon) {
     if (!flipped) {
@@ -719,25 +719,28 @@ if (global.gameon) {
             <kind>1</kind>
             <string>///Draw Cards
 
+cardsscale = 0.5;
+cardsx = (room_width / 2);
+cardsy = room_height;
 
-cardsx = 100;
-cardsy = 150;
+cardsy -= 168;
+cardsx -= 20;
 for(i = 0; i &lt; playeronhand; i+=1)
 {   
-    draw_sprite_ext(spr_cards, ds_list_find_value(drawplayercards, i), cardsx, cardsy, 1, 1,0,c_white,1);
-    cardsx += 45;
-    cardsy += 20;
+    draw_sprite_ext(spr_cards, ds_list_find_value(drawplayercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
+    cardsx += 20;
 }
-cardsx = 300;
-cardsy = 150;
+cardsx = (room_width / 2);
+cardsy = room_height;
+
+cardsy -= 450;
 for(j = 0; j &lt; dealeronhand; j += 1) {   
     if(!flipped &amp;&amp; j == 1) {
-        draw_sprite_ext(spr_cards, 52, cardsx, cardsy, 1, 1,0,c_white,1);
+        draw_sprite_ext(spr_cards, 52/*cardback sprite is #52*/, cardsx, cardsy, cardsscale, cardsscale ,0,c_white,1);
     } else {
-        draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, j), cardsx, cardsy, 1, 1,0,c_white,1);
+        draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, j), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
     }
-    cardsx += 45;
-    cardsy += 20;
+    cardsx += 20;
 }
 
 

@@ -19,7 +19,9 @@
     <sprite>sprites\spr_doublebutton</sprite>
     <sprite>sprites\spr_cards</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\background0</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\scr_getvalue.gml</script>
@@ -35,7 +37,6 @@
     <object>objects\obj_main</object>
     <object>objects\obj_betbutton</object>
     <object>objects\obj_newgamebutton</object>
-    <object>objects\obj_card</object>
     <object>objects\obj_hitbutton</object>
     <object>objects\obj_standbutton</object>
     <object>objects\obj_restartbutton</object>

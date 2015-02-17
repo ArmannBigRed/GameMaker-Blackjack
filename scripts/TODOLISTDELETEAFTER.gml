@@ -6,4 +6,4 @@
 
 
 //possible bugs - need to test
-// disable double button if there is no mouney for double
+
