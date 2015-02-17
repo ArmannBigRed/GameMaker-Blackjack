@@ -256,8 +256,10 @@ while (playeronhand &lt; global.playerdealnewcard) {
     }
 
     //check win conditions
-    if (playerhandvalue == 21) {
-        scr_endgame('win');
+    
+    if(playerhandvalue == 21 &amp;&amp; playeronhand == 2)
+    {  
+        scr_endgame('blackjack');
         why = 'Blackjack!';
     }
     if (playeronhand == 5) {
@@ -505,14 +507,12 @@ if (global.stand &amp;&amp; dealerhandvalue &lt;= 16) {
 }
 //win or lose conditions if the game comes down to a showdown
 if (global.stand &amp;&amp; dealerhandvalue &gt;= 17 &amp;&amp; dealerhandvalue &lt;= 21) {
-    if (dealerhandvalue &gt; playerhandvalue) {
+    if(dealerhandvalue == 21 &amp;&amp; dealeronhand == 2){
         scr_endgame('lose');
-        if (dealerhandvalue == 21) {
-            why = 'dealer Blackjack!';
-        } else {
-            why = 'You lose, Sorry!';
-        }
-
+        why = 'Dealer Blackjack!'   
+    } else if (dealerhandvalue &gt; playerhandvalue) {
+        scr_endgame('lose');
+        why = 'You lose, Sorry!';
     } else if (playerhandvalue &gt; dealerhandvalue) {
         scr_endgame('win');
         why = 'You win!';

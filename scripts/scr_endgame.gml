@@ -10,6 +10,8 @@ with(obj_noinsurance)
 {
     instance_destroy();
 }
+scr_killplaybuttons();
+
 with(obj_main)
 {
     if(playerhandvalue != 21)
@@ -18,8 +20,12 @@ with(obj_main)
     }
 }
 
-switch(result)
-{
+switch(result){
+    case 'blackjack':
+    {
+        global.money += global.pot * 3
+        break;
+    }
     case 'win':
     {
         global.money += (global.pot * 2);
@@ -27,68 +33,18 @@ switch(result)
     }
     case 'lose':
     {
-        break;result = argument0;
-
-global.double = false;
-global.stand = false;
-with(obj_insurance) {
-    instance_destroy();
-}
-with(obj_noinsurance) {
-    instance_destroy();
-}
-with(obj_main) {
-    if (playerhandvalue != 21) {
-        flipped = true;
+        break;
     }
 }
 
-switch (result) {
-    case 'win':
-        {
-            global.money += (global.pot * 2);
-            break;
-        }
-    case 'lose':
-        {
-            break;
-        }
-    case 'push':
-        {
-            global.money += global.pot;
-            break;
-        }
-}
-
-scr_killplaybuttons();
 var m = instance_create(300, 320, obj_restartbutton);
 with(m) {
     if (global.money <= 0) {
         subimg = 1;
         global.gameover = true;
-    } else {
+    } 
+    else {
         subimg = 0;
-    }
-}
-    }
-    case 'push':
-    {
-        global.money += global.pot;
-        break;
     }
 }
 
-scr_killplaybuttons();
-var m = instance_create(300, 320, obj_restartbutton);
-with(m)
-{
-    if(global.money <= 0)
-    {
-        subimg = 1;
-        global.gameover = true;
-    }
-    else
-    {
-        subimg = 0;
-    }
-}
