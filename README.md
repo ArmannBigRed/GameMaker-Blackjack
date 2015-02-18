@@ -25,3 +25,11 @@ fixed some win condition outputs such as dealer blackjack showing up on dealer 2
 Added playing card assets
 Added a way to display cards
 Minor changes and bugfixes
+
+***-1.1.3***
+
+Cards are now displayed
+Moved some ui around - added / removed elements
+added background
+
+

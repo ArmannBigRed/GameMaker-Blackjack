@@ -62,6 +62,12 @@ flipped = false;
 insure = false;
 insoption = true;
 
+animatedealercard = false;
+animateplayercard = false;
+
+animx = 832;
+animy = 110;
+
 </string>
           </argument>
         </arguments>
@@ -248,6 +254,7 @@ while (playeronhand &lt; global.playerdealnewcard) {
     ds_list_add(playercardsuit, scr_getsuit(card));
     ds_list_add(playercards, scr_getvalue(card));
 
+    animateplayercard = true;
     //increment the next card in the deck and # of card in the players hand
     nextcard += 1;
     playeronhand += 1;
@@ -307,6 +314,7 @@ if (global.gameon) {
     //count cards on hand, to deal a new one +1 dealerdealnewcard
     while (dealeronhand &lt; global.dealerdealnewcard) {
         //add one card to the dealers hand
+        animatedealercard = true;
         dealeronhand += 1;
         //assign the temp variable card the value of the next card in the deck
         var card = 0;
@@ -408,8 +416,6 @@ if (global.gameon) {
                     with(obj_standbutton) {
                             instance_destroy();
                         }
-                        //instance_deactivate_object(obj_hitbutton);
-                        //instance_deactivate_object(obj_standbutton);
                 }
                 insoption = false;
             }
@@ -459,10 +465,10 @@ if (global.gameon) {
     instance_deactivate_object(obj_newgamebutton);
     //only make the objects once
     if (global.makeobj &amp;&amp; dealeronhand == 2 &amp;&amp; playerhandvalue != 21) {
-        var hit = instance_create(300, 320, obj_hitbutton)
-        var stand = instance_create(380, 320, obj_standbutton)
+        var hit = instance_create(300, 280, obj_hitbutton)
+        var stand = instance_create(380, 280, obj_standbutton)
         if (global.money &gt;= (global.pot)) {
-            var double = instance_create(460, 320, obj_doublebutton)
+            var double = instance_create(460, 280, obj_doublebutton)
         }
         else {
             //TODO add some tooltip letting the player know he doesnt have money for double
@@ -636,46 +642,55 @@ if (global.double) {
           <argument>
             <kind>1</kind>
             <string>/// just for debugging, delete later
-draw_text(x + 100, y + 100, 'money: ' + string(global.money));
+draw_text(x + 10, y + 20, 'money: ' + string(global.money));
 if (!global.gameon) {
-    draw_text(x + 100, y + 120, 'Current Bet: ' + string(global.currentbet));
+    draw_text(x + 10, y + 40, 'Pot: ' + string(global.currentbet));
 } else {
-    draw_text(x + 100, y + 120, 'Pot: ' + string(global.pot));
+    draw_text(x + 10, y + 40, 'Pot: ' + string(global.pot));
 }
 
-var yy = 100;
-var yyp = 100;
-var xx = 500;
-var i = 0;
-var j = 0;
-var f = 0;
+xx = room_width / 2;
+yy = room_height / 2;
+
+
 draw_set_colour(c_white);
 
 if (global.gameon) {
     if (!flipped) {
         var tempscore = ds_list_create();
         ds_list_add(tempscore, ds_list_find_value(dealercards, 0));
-        draw_text(x - 70, y + 250, "you have " + string(playerhandvalue) + " dealer has " + string(scr_gettotal(tempscore)));
+        draw_text(xx - 100, yy + 90,string(playerhandvalue));
+        draw_text(xx - 100, yy - 190, string(scr_gettotal(tempscore)));
     } else {
-        draw_text(x - 70, y + 250, "you have " + string(playerhandvalue) + " dealer has " + string(dealerhandvalue));
+        draw_text(xx - 100,yy + 90, string(playerhandvalue));
+        draw_text(xx - 100, yy - 190, string(dealerhandvalue));
     }
 
 }
 
 if (why != 'null') {
     if (global.gameover) {
-        draw_text(x - 70, y + 270, 'Game Over, You ran out of money!');
+        draw_text(xx + 250, yy - 80, 'Game Over, You ran out of money!');
     } else {
-        draw_text(x - 70, y + 270, string(why));
+        draw_text(xx + 250, yy - 80, string(why));
     }
 }
 
 
-
+/*
 var o = 0;
 var yyo = 100;
 var yyn = 100;
 var n = 0;
+var yy = 100;
+var yyp = 100;
+var xx = 500;
+var i = 0;
+var j = 0;
+var f = 0;
+
+// Display the card value and suit of the dealer and player, remove after adding card sprites
+
 if (global.gameon) {
 
     draw_text(x - 70, y + 290, string('playercards'))
@@ -697,6 +712,8 @@ if (global.gameon) {
         j += 1;
     }
 }
+
+*/
 </string>
           </argument>
         </arguments>
@@ -720,6 +737,7 @@ if (global.gameon) {
             <string>///Draw Cards
 
 cardsscale = 0.5;
+rot = 0;
 cardsx = (room_width / 2);
 cardsy = room_height;
 
@@ -728,20 +746,53 @@ cardsx -= 20;
 for(i = 0; i &lt; playeronhand; i+=1)
 {   
     draw_sprite_ext(spr_cards, ds_list_find_value(drawplayercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
-    cardsx += 20;
+    cardsx += 18;
 }
+cardsx = (room_width / 2);
+cardsy = room_height;
+cardsy -= 450;
+cardsx -= 20;
+
+
+for(i = 0; i &lt; dealeronhand; i += 1) {   
+    if(!flipped &amp;&amp; i == 1) {
+        draw_sprite_ext(spr_cards, 52/*cardback sprite is #52*/, cardsx, cardsy, cardsscale, cardsscale ,0,c_white,1);
+    } else {
+        draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
+    }
+    cardsx += 18;
+}
+
 cardsx = (room_width / 2);
 cardsy = room_height;
 
 cardsy -= 450;
-for(j = 0; j &lt; dealeronhand; j += 1) {   
-    if(!flipped &amp;&amp; j == 1) {
-        draw_sprite_ext(spr_cards, 52/*cardback sprite is #52*/, cardsx, cardsy, cardsscale, cardsscale ,0,c_white,1);
-    } else {
-        draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, j), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
-    }
-    cardsx += 20;
+cardsx += 380; 
+
+//decorative deck
+for(i = 0; i &lt; 4; i +=1) {
+    draw_sprite_ext(spr_cards, 52/*cardback sprite is #52*/, cardsx, cardsy, cardsscale, cardsscale ,0,c_white,1);
+    cardsx -= 7;
+    cardsy += 5;
 }
+
+//Animate cards  TODO
+/*
+    find the final position of the card, move on the x and y axis from y = 110; x= 832;
+    untill reaching the endpoint
+    bonus points
+    rotate the card on the way
+    
+    I think it would be a lot easier doing this with a object
+    Check if we can't just make a card object without changing too much
+    
+    Possible solution
+    while(animx != cardsx) {
+    draw_sprite_ext(spr_cards, 52, animx, animy, cardsscale, cardsscale ,0,c_white,1);
+    animx -= 1;
+}
+    
+*/
 
 
 </string>

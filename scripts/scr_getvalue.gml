@@ -13,5 +13,3 @@ switch (card % 13 + 1) {
     default:
         return card % 13 + 1;
 }
-
-
