@@ -8,9 +8,6 @@
   <sprites name="sprites">
     <sprite>sprites\spr_betsizebutton</sprite>
     <sprite>sprites\spr_newgamebutton</sprite>
-    <sprite>sprites\spr_card</sprite>
-    <sprite>sprites\spr_suits</sprite>
-    <sprite>sprites\spr_cardvalue</sprite>
     <sprite>sprites\spr_hitbutton</sprite>
     <sprite>sprites\spr_standbutton</sprite>
     <sprite>sprites\spr_restart</sprite>
@@ -18,6 +15,7 @@
     <sprite>sprites\spr_noinsurance</sprite>
     <sprite>sprites\spr_doublebutton</sprite>
     <sprite>sprites\spr_cards</sprite>
+    <sprite>sprites\spr_score</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -28,11 +26,14 @@
     <script>scripts\scr_getsuit.gml</script>
     <script>scripts\scr_gettotal.gml</script>
     <script>scripts\scr_endgame.gml</script>
-    <script>scripts\TODOLISTDELETEAFTER.gml</script>
     <script>scripts\scr_killplaybuttons.gml</script>
     <script>scripts\scr_convertsuittospr.gml</script>
     <script>scripts\scr_convertvaluetospr.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fnt_arial12</font>
+    <font>fonts\fnt_arial10</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_main</object>
     <object>objects\obj_betbutton</object>
@@ -43,6 +44,8 @@
     <object>objects\obj_insurance</object>
     <object>objects\obj_noinsurance</object>
     <object>objects\obj_doublebutton</object>
+    <object>objects\obj_card</object>
+    <object>objects\obj_score</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_level</room>

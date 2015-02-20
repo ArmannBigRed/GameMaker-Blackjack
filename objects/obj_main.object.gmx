@@ -91,12 +91,12 @@ animy = 110;
             <string>///New game and bet buttons
 
 //grid width and height
-width = 4;
+width = 2;
 height = 2;
 //starting position of the grid
-xx = 300
-yy = 320
-var newgame = instance_create(xx+52, yy-62,obj_newgamebutton);
+xx = 35
+yy = 440
+var newgame = instance_create(480, 515,obj_newgamebutton);
 //counter for the subimg and change bet ammount
 count = 0;
 //nested for loop to create the button grid
@@ -113,11 +113,19 @@ for(i = 0; i &lt; height; i += 1)
         }
         count += 1;
         //move the grid to the right by one button
-        xx += 84;
+        xx += 60;
     }
     //reset the x position, move the grid up one
-    xx = 300;
-    yy += 48;    
+    xx = 35;
+    yy += 60;    
+}
+
+var inst = instance_create(155,500 ,obj_betbutton);
+        //set some variables in the new instance
+with(inst)
+{
+    subimg = 4;
+    changebet = 4;
 }
 </string>
           </argument>
@@ -254,7 +262,6 @@ while (playeronhand &lt; global.playerdealnewcard) {
     ds_list_add(playercardsuit, scr_getsuit(card));
     ds_list_add(playercards, scr_getvalue(card));
 
-    animateplayercard = true;
     //increment the next card in the deck and # of card in the players hand
     nextcard += 1;
     playeronhand += 1;
@@ -273,7 +280,7 @@ while (playeronhand &lt; global.playerdealnewcard) {
         scr_endgame('blackjack');
         why = 'Blackjack!';
     }
-    if (playeronhand == 5) {
+    if (playeronhand == 5 &amp;&amp; playerhandvalue &lt;= 21) {
         scr_endgame('win');
         why = 'Win! 5 cards without bust';
     }
@@ -314,7 +321,6 @@ if (global.gameon) {
     //count cards on hand, to deal a new one +1 dealerdealnewcard
     while (dealeronhand &lt; global.dealerdealnewcard) {
         //add one card to the dealers hand
-        animatedealercard = true;
         dealeronhand += 1;
         //assign the temp variable card the value of the next card in the deck
         var card = 0;
@@ -340,16 +346,14 @@ if (global.gameon) {
             if (is_string(ds_list_find_value(dealercardsvalue, 0)) &amp;&amp; insoption &amp;&amp; dealeronhand == 2 &amp;&amp; playerhandvalue != 21) {
                 if (ds_list_find_value(dealercardsvalue, 0) == 'A') {
                     global.makeobj = false;
-                    instance_create(300, 320, obj_insurance);
-                    instance_create(410, 335, obj_noinsurance);
+                    instance_create(435, 515, obj_insurance);
+                    instance_create(525, 515, obj_noinsurance);
                     with(obj_hitbutton) {
                         instance_destroy();
                     }
                     with(obj_standbutton) {
                             instance_destroy();
                         }
-                        //instance_deactivate_object(obj_hitbutton);
-                        //instance_deactivate_object(obj_standbutton);
                 }
                 insoption = false;
             }
@@ -357,7 +361,7 @@ if (global.gameon) {
             //TODO: add a tooltip letting the player know he didn't have enough money for insurance
         }
         //check for dealer blackjack only if the second card is flipped
-        if (dealerhandvalue == 21 &amp;&amp; flipped) {
+        if (dealerhandvalue == 21 &amp;&amp; flipped &amp;&amp; dealeronhand == 2) {
             if (playerhandvalue == 21) {
                 scr_endgame('push');
                 why = 'Push! bet returned';
@@ -465,10 +469,10 @@ if (global.gameon) {
     instance_deactivate_object(obj_newgamebutton);
     //only make the objects once
     if (global.makeobj &amp;&amp; dealeronhand == 2 &amp;&amp; playerhandvalue != 21) {
-        var hit = instance_create(300, 280, obj_hitbutton)
-        var stand = instance_create(380, 280, obj_standbutton)
+        var hit = instance_create(390, 515, obj_hitbutton)
+        var stand = instance_create(480, 515, obj_standbutton)
         if (global.money &gt;= (global.pot)) {
-            var double = instance_create(460, 280, obj_doublebutton)
+            var double = instance_create(570, 515, obj_doublebutton)
         }
         else {
             //TODO add some tooltip letting the player know he doesnt have money for double
@@ -642,18 +646,16 @@ if (global.double) {
           <argument>
             <kind>1</kind>
             <string>/// just for debugging, delete later
-draw_text(x + 10, y + 20, 'money: ' + string(global.money));
-if (!global.gameon) {
-    draw_text(x + 10, y + 40, 'Pot: ' + string(global.currentbet));
-} else {
-    draw_text(x + 10, y + 40, 'Pot: ' + string(global.pot));
-}
+draw_set_font(fnt_arial12);
+
 
 xx = room_width / 2;
 yy = room_height / 2;
 
 
 draw_set_colour(c_white);
+
+
 
 if (global.gameon) {
     if (!flipped) {

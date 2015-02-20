@@ -27,12 +27,40 @@
             <kind>1</kind>
             <string>subimg = 0;
 changebet = 0;
+imgscale = 1;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="6" enumb="4">
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (position_meeting(mouse_x,mouse_y,self)&amp;&amp; mouse_check_button(mb_left)){
+    imgscale = 0.5
+} else {
+    imgscale = 0.8
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="7">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -64,16 +92,7 @@ changebet = 0;
         global.currentbet += 1000;
         break;
     case 4:
-        global.currentbet -= 1;
-        break;
-    case 5:
-        global.currentbet -= 10;
-        break;
-    case 6:
-        global.currentbet -= 100;
-        break;
-    case 7:
-        global.currentbet -= 1000;
+        global.currentbet = 10;
         break;
 }
 if(global.currentbet &lt;= 0)
@@ -84,6 +103,7 @@ if(global.currentbet &gt; global.money)
 {
     global.currentbet = global.money;
 }
+
 </string>
           </argument>
         </arguments>
@@ -107,7 +127,7 @@ if(global.currentbet &gt; global.money)
           <argument>
             <kind>1</kind>
             <string>image_speed = 0;
-draw_sprite(spr_betsizebutton, subimg, x, y);
+draw_sprite_ext(spr_betsizebutton, subimg, x, y, imgscale, imgscale, 1, c_white, 1)
 </string>
           </argument>
         </arguments>

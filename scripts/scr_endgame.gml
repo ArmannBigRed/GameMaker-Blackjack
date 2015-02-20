@@ -37,14 +37,4 @@ switch(result){
     }
 }
 
-var m = instance_create(300, 320, obj_restartbutton);
-with(m) {
-    if (global.money <= 0) {
-        subimg = 1;
-        global.gameover = true;
-    } 
-    else {
-        subimg = 0;
-    }
-}
-
+var m = instance_create(480, 515, obj_restartbutton);
