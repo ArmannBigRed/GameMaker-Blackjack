@@ -80,7 +80,6 @@ else {
           <argument>
             <kind>1</kind>
             <string>global.double = true;
-
 </string>
           </argument>
         </arguments>

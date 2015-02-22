@@ -4,7 +4,13 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\a_music</sound>
+    <sound>sound\a_lose</sound>
+    <sound>sound\a_win</sound>
+    <sound>sound\a_push</sound>
+    <sound>sound\a_deal</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_betsizebutton</sprite>
     <sprite>sprites\spr_newgamebutton</sprite>
@@ -16,6 +22,8 @@
     <sprite>sprites\spr_doublebutton</sprite>
     <sprite>sprites\spr_cards</sprite>
     <sprite>sprites\spr_score</sprite>
+    <sprite>sprites\spr_infobox</sprite>
+    <sprite>sprites\spr_soundicon</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -27,8 +35,7 @@
     <script>scripts\scr_gettotal.gml</script>
     <script>scripts\scr_endgame.gml</script>
     <script>scripts\scr_killplaybuttons.gml</script>
-    <script>scripts\scr_convertsuittospr.gml</script>
-    <script>scripts\scr_convertvaluetospr.gml</script>
+    <script>scripts\scr_animatecard.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_arial12</font>
@@ -46,6 +53,7 @@
     <object>objects\obj_doublebutton</object>
     <object>objects\obj_card</object>
     <object>objects\obj_score</object>
+    <object>objects\obj_sounds</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_level</room>

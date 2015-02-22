@@ -28,6 +28,8 @@
             <string>draw_self();
 
 draw_set_font(fnt_arial10);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
 
 draw_text(60, 50, 'money: ');
 draw_text(60, 73, string(global.money));

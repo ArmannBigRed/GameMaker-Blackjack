@@ -96,7 +96,6 @@ else {
     global.dealerdealnewcard += 2;
     global.makeobj = true;
 
-
 </string>
           </argument>
         </arguments>

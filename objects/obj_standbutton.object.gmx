@@ -80,6 +80,7 @@ else {
           <argument>
             <kind>1</kind>
             <string>global.stand = true;
+
 </string>
           </argument>
         </arguments>

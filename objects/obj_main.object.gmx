@@ -42,8 +42,9 @@ global.gameover = false;
 global.insurance = false;
 global.noinsurance = false;
 global.double = false;
-global.split = false;
 
+global.drawcardsdealer = ds_list_create();
+global.drawcardsplayer = ds_list_create();
 
 why = 'null';
 nextcard = 0;
@@ -61,12 +62,8 @@ drawdealercards = ds_list_create();
 flipped = false;
 insure = false;
 insoption = true;
+drawquestion = false;
 
-animatedealercard = false;
-animateplayercard = false;
-
-animx = 832;
-animy = 110;
 
 </string>
           </argument>
@@ -255,6 +252,7 @@ if (global.stand) {
             <kind>1</kind>
             <string>///add new cards for the player
 while (playeronhand &lt; global.playerdealnewcard) {
+    scr_animatecard('player');
     //assign the temp variable card the value of the next card in the deck
     var card = 0;
     card = ds_list_find_value(deck, nextcard);
@@ -274,11 +272,15 @@ while (playeronhand &lt; global.playerdealnewcard) {
     }
 
     //check win conditions
-    
+
     if(playerhandvalue == 21 &amp;&amp; playeronhand == 2)
     {  
         scr_endgame('blackjack');
         why = 'Blackjack!';
+    }
+    else if(playerhandvalue == 21)
+    {
+        global.stand = true;
     }
     if (playeronhand == 5 &amp;&amp; playerhandvalue &lt;= 21) {
         scr_endgame('win');
@@ -321,6 +323,7 @@ if (global.gameon) {
     //count cards on hand, to deal a new one +1 dealerdealnewcard
     while (dealeronhand &lt; global.dealerdealnewcard) {
         //add one card to the dealers hand
+        scr_animatecard('dealer');
         dealeronhand += 1;
         //assign the temp variable card the value of the next card in the deck
         var card = 0;
@@ -354,6 +357,7 @@ if (global.gameon) {
                     with(obj_standbutton) {
                             instance_destroy();
                         }
+                        drawquestion = true;
                 }
                 insoption = false;
             }
@@ -376,73 +380,7 @@ if (global.gameon) {
             why = 'Dealer busted!';
         }
     }
-} ///add new cards for the dealer
-if (global.gameon) {
-    //make sure we flip the dealers second card when appropriate
-    if (flipped &amp;&amp; dealeronhand &gt;= 2) {
-        ds_list_replace(dealercardsuit, 1, tempsuit);
-        ds_list_replace(dealercards, 1, tempcard);
-    }
-
-
-    //count cards on hand, to deal a new one +1 dealerdealnewcard
-    while (dealeronhand &lt; global.dealerdealnewcard) {
-        //add one card to the dealers hand
-        dealeronhand += 1;
-        //assign the temp variable card the value of the next card in the deck
-        var card = 0;
-        card = ds_list_find_value(deck, nextcard);
-        nextcard += 1;
-        //Handle the face down card (dealers second card)
-        if (dealeronhand == 2) {
-            tempsuit = scr_getsuit(card);
-            tempcard = scr_getvalue(card);
-            ds_list_add(dealercardsuit, ' ');
-            ds_list_add(dealercards, 'Flipped');
-        } else {
-            ds_list_add(dealercardsuit, scr_getsuit(card));
-            ds_list_add(dealercards, scr_getvalue(card));
-        }
-        //store all of the dealers cards and the total score of the hand
-        ds_list_add(dealercardsvalue, scr_getvalue(card));
-        dealerhandvalue = scr_gettotal(dealercardsvalue);
-
-        //if the first dealer card is an ace and there is enough money for insurance, offer insurance 
-        if (global.money &gt; (global.pot / 2)) {
-            if (is_string(ds_list_find_value(dealercardsvalue, 0)) &amp;&amp; insoption &amp;&amp; dealeronhand == 2 &amp;&amp; playerhandvalue != 21) {
-                if (ds_list_find_value(dealercardsvalue, 0) == 'A') {
-                    global.makeobj = false;
-                    instance_create(300, 320, obj_insurance);
-                    instance_create(410, 335, obj_noinsurance);
-                    with(obj_hitbutton) {
-                        instance_destroy();
-                    }
-                    with(obj_standbutton) {
-                            instance_destroy();
-                        }
-                }
-                insoption = false;
-            }
-        } else {
-            //TODO: add a tooltip letting the player know he didn't have enough money for insurance
-        }
-        //check for dealer blackjack only if the second card is flipped
-        if (dealerhandvalue == 21 &amp;&amp; flipped) {
-            if (playerhandvalue == 21) {
-                scr_endgame('push');
-                why = 'Push! bet returned';
-            } else {
-                scr_endgame('lose');
-                why = 'Dealer blackjack!';
-            }
-        }
-        //check for dealer bust
-        if (dealerhandvalue &gt; 21) {
-            scr_endgame('win');
-            why = 'Dealer busted!';
-        }
-    }
-}
+} 
 </string>
           </argument>
         </arguments>
@@ -525,16 +463,16 @@ if (global.stand &amp;&amp; dealerhandvalue &gt;= 17 &amp;&amp; dealerhandvalue 
     if(dealerhandvalue == 21 &amp;&amp; dealeronhand == 2){
         scr_endgame('lose');
         why = 'Dealer Blackjack!'   
+    } else if (playerhandvalue == dealerhandvalue) {
+        scr_endgame('push');
+        why = 'Push! bet returned'
     } else if (dealerhandvalue &gt; playerhandvalue) {
         scr_endgame('lose');
         why = 'You lose, Sorry!';
     } else if (playerhandvalue &gt; dealerhandvalue) {
         scr_endgame('win');
         why = 'You win!';
-    } else if (playerhandvalue == dealerhandvalue) {
-        scr_endgame('push');
-        why = 'Push! bet returned';
-    }
+        }
 }
 </string>
           </argument>
@@ -583,7 +521,7 @@ if (global.noinsurance) {
             why = 'Push! bet returned';
         } else {
             scr_endgame('lose');
-            why = 'Dealer blackjack!, should have bought insurance!';
+            why = 'Dealer blackjack!, You lose, Sorry!';
         }
     }
     global.noinsurance = false;
@@ -645,10 +583,8 @@ if (global.double) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// just for debugging, delete later
+            <string>/// Draw Text
 draw_set_font(fnt_arial12);
-
-
 xx = room_width / 2;
 yy = room_height / 2;
 
@@ -661,23 +597,41 @@ if (global.gameon) {
     if (!flipped) {
         var tempscore = ds_list_create();
         ds_list_add(tempscore, ds_list_find_value(dealercards, 0));
+        draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
         draw_text(xx - 100, yy + 90,string(playerhandvalue));
         draw_text(xx - 100, yy - 190, string(scr_gettotal(tempscore)));
     } else {
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
         draw_text(xx - 100,yy + 90, string(playerhandvalue));
         draw_text(xx - 100, yy - 190, string(dealerhandvalue));
     }
 
 }
 
+
 if (why != 'null') {
     if (global.gameover) {
-        draw_text(xx + 250, yy - 80, 'Game Over, You ran out of money!');
+        draw_sprite(spr_infobox, 0, 480, 451);
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_text(480, 450, 'Game Over, You ran out of money!');
     } else {
-        draw_text(xx + 250, yy - 80, string(why));
+        draw_sprite(spr_infobox, 0, 480, 451);
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_text(480, 450, string(why));
     }
 }
 
+if(drawquestion)
+{
+        draw_sprite(spr_infobox, 0, 480, 451);
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_text(480,450,'Dealer has Ace, buy insurance ?');
+}
 
 /*
 var o = 0;
@@ -747,23 +701,33 @@ cardsy -= 168;
 cardsx -= 20;
 for(i = 0; i &lt; playeronhand; i+=1)
 {   
-    draw_sprite_ext(spr_cards, ds_list_find_value(drawplayercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
-    cardsx += 18;
+    if(ds_list_find_value(global.drawcardsplayer, i))
+    {
+        draw_sprite_ext(spr_cards, ds_list_find_value(drawplayercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
+        cardsx += 18;
+    }
 }
 cardsx = (room_width / 2);
 cardsy = room_height;
 cardsy -= 450;
 cardsx -= 20;
 
-
-for(i = 0; i &lt; dealeronhand; i += 1) {   
-    if(!flipped &amp;&amp; i == 1) {
-        draw_sprite_ext(spr_cards, 52/*cardback sprite is #52*/, cardsx, cardsy, cardsscale, cardsscale ,0,c_white,1);
-    } else {
-        draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
+    for(i = 0; i &lt; dealeronhand; i += 1) {   
+        if(!flipped &amp;&amp; i == 1) {
+            if(ds_list_find_value(global.drawcardsdealer, i))
+            {
+                draw_sprite_ext(spr_cards, 52/*cardback sprite is #52*/, cardsx, cardsy, cardsscale, cardsscale ,0,c_white,1);
+                cardsx += 18;
+            }
+        } else {
+            if(ds_list_find_value(global.drawcardsdealer, i))
+            {
+                draw_sprite_ext(spr_cards, ds_list_find_value(drawdealercards, i), cardsx, cardsy, cardsscale, cardsscale,0,c_white,1);
+                cardsx += 18;
+            }
+        }
+        
     }
-    cardsx += 18;
-}
 
 cardsx = (room_width / 2);
 cardsy = room_height;
@@ -778,23 +742,6 @@ for(i = 0; i &lt; 4; i +=1) {
     cardsy += 5;
 }
 
-//Animate cards  TODO
-/*
-    find the final position of the card, move on the x and y axis from y = 110; x= 832;
-    untill reaching the endpoint
-    bonus points
-    rotate the card on the way
-    
-    I think it would be a lot easier doing this with a object
-    Check if we can't just make a card object without changing too much
-    
-    Possible solution
-    while(animx != cardsx) {
-    draw_sprite_ext(spr_cards, 52, animx, animy, cardsscale, cardsscale ,0,c_white,1);
-    animx -= 1;
-}
-    
-*/
 
 
 </string>

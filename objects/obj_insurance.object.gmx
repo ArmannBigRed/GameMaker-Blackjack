@@ -81,7 +81,12 @@ else {
             <kind>1</kind>
             <string>global.insurance = true;
 //TODO: find a fix for if this goes below global.money, maybe just disable insurance ?
-global.money -= (global.pot / 2);
+global.money -= (round(global.pot / 2));
+with(obj_main)
+{
+    drawquestion = false;
+}
+
 </string>
           </argument>
         </arguments>
