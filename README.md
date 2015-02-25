@@ -4,7 +4,7 @@ Blackjack betabuild 1.0.1
 
 Blackjack made with game maker
 
-****This project is still in developement****
+****This project is final and will not recieve any further updates****
 
 Changelog since betabuild 1.0.0
 
@@ -32,4 +32,12 @@ Cards are now displayed
 Moved some ui around - added / removed elements
 added background
 
+
+***Final Version***
+
+I have been rather lazy updating here, but I'm now uploading the final version of the game, its playable and polished enough I feel.
+
+I could have done a lot more with this project but I have felt from the start that this is a stepping stone into making a "real game", I learned a lot from this and I hope my next project will be even better for it
+
+Also I am very proud to have finally finished a project that I started from scratch.
 
