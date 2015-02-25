@@ -42,7 +42,6 @@ global.gameover = false;
 global.insurance = false;
 global.noinsurance = false;
 global.double = false;
-
 global.drawcardsdealer = ds_list_create();
 global.drawcardsplayer = ds_list_create();
 
@@ -351,6 +350,7 @@ if (global.gameon) {
                     global.makeobj = false;
                     instance_create(435, 515, obj_insurance);
                     instance_create(525, 515, obj_noinsurance);
+                    instance_create(480, 485, obj_info);
                     with(obj_hitbutton) {
                         instance_destroy();
                     }
@@ -421,7 +421,7 @@ if (global.gameon) {
 
 if (!global.gameon) {
     why = 'null';
-    if (nextcard &gt; 42) {
+    if (nextcard &gt; 32) {
         randomize();
         ds_list_shuffle(deck);
         nextcard = 0;
@@ -633,43 +633,7 @@ if(drawquestion)
         draw_text(480,450,'Dealer has Ace, buy insurance ?');
 }
 
-/*
-var o = 0;
-var yyo = 100;
-var yyn = 100;
-var n = 0;
-var yy = 100;
-var yyp = 100;
-var xx = 500;
-var i = 0;
-var j = 0;
-var f = 0;
 
-// Display the card value and suit of the dealer and player, remove after adding card sprites
-
-if (global.gameon) {
-
-    draw_text(x - 70, y + 290, string('playercards'))
-    repeat(ds_list_size(playercards)) {
-        if (!ds_list_empty(playercards)) {
-            draw_text(x - 70, yyp + 270, string(ds_list_find_value(playercards, f)));
-            draw_text(x - 50, yyp + 270, string(ds_list_find_value(playercardsuit, f)));
-        }
-        yyp += 15;
-        f += 1;
-    }
-    draw_text(x + 50, y + 290, string('dealercards'))
-    repeat(ds_list_size(dealercards)) {
-        if (!ds_list_empty(dealercards)) {
-            draw_text(x + 50, yy + 270, string(ds_list_find_value(dealercards, j)));
-            draw_text(x + 70, yy + 270, string(ds_list_find_value(dealercardsuit, j)));
-        }
-        yy += 15;
-        j += 1;
-    }
-}
-
-*/
 </string>
           </argument>
         </arguments>

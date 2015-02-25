@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -53,48 +53,43 @@ audio_play_sound(a_music, 1, true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(pressed)
+            <string>if(mouse_check_button_pressed(mb_left) &amp;&amp; position_meeting(mouse_x, mouse_y, self))
 {
-    audio_master_gain(0);
-    subimage = 1;
-}
-else
-{
-    audio_master_gain(1);
-    subimage = 0;
+    if(!pressed)
+    {
+        audio_master_gain(0);
+        subimage = 1;
+        temp = obj_volbar.percentage
+        pressed = true
+    }
+    else
+    {
+        audio_master_gain(obj_volbar.percentage / 100);
+        subimage = 0;
+        pressed = false;
+    }
 }
 
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="6" enumb="4">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if(!pressed)
+if(!pressed)
 {
-    pressed = true
+    audio_master_gain(obj_volbar.percentage / 100);
+    if(obj_volbar.percentage = 0)
+    {
+        subimage = 1;
+    }
+    else
+    {
+        subimage = 0;
+    }
 }
-else
+
+if(pressed)
 {
-    pressed = false;
-}   
+    if(obj_volbar.percentage != temp)
+    {
+        pressed = false;
+    }
+}
 </string>
           </argument>
         </arguments>

@@ -10,6 +10,9 @@
     <sound>sound\a_win</sound>
     <sound>sound\a_push</sound>
     <sound>sound\a_deal</sound>
+    <sound>sound\a_dealbutton</sound>
+    <sound>sound\a_gameover</sound>
+    <sound>sound\a_chips</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_betsizebutton</sprite>
@@ -24,6 +27,10 @@
     <sprite>sprites\spr_score</sprite>
     <sprite>sprites\spr_infobox</sprite>
     <sprite>sprites\spr_soundicon</sprite>
+    <sprite>sprites\spr_volslider</sprite>
+    <sprite>sprites\spr_volbar</sprite>
+    <sprite>sprites\spr_note</sprite>
+    <sprite>sprites\spr_info</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -54,6 +61,10 @@
     <object>objects\obj_card</object>
     <object>objects\obj_score</object>
     <object>objects\obj_sounds</object>
+    <object>objects\obj_volslider</object>
+    <object>objects\obj_volbar</object>
+    <object>objects\obj_note</object>
+    <object>objects\obj_info</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_level</room>

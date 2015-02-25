@@ -47,3 +47,8 @@ switch(result){
 }
 
 var m = instance_create(480, 515, obj_restartbutton);
+if (global.money <= 0) {
+    audio_play_sound(a_gameover, 1, false);
+}
+
+

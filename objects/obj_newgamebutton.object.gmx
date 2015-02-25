@@ -96,6 +96,7 @@ else {
     global.dealerdealnewcard += 2;
     global.makeobj = true;
 
+audio_play_sound(a_dealbutton, 1, false);
 </string>
           </argument>
         </arguments>

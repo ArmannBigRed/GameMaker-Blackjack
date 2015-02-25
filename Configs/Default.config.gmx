@@ -68,7 +68,7 @@
     <option_changeresolution>false</option_changeresolution>
     <option_closeesc>true</option_closeesc>
     <option_colordepth>0</option_colordepth>
-    <option_display_name>Blackjack</option_display_name>
+    <option_display_name>Blackjack - By BigRustyRed</option_display_name>
     <option_displayerrors>True</option_displayerrors>
     <option_facebook_app_display_name></option_facebook_app_display_name>
     <option_facebook_appid></option_facebook_appid>
@@ -285,10 +285,10 @@
     <option_use_new_audio>True</option_use_new_audio>
     <option_variableerrors>False</option_variableerrors>
     <option_version>100</option_version>
-    <option_version_build>6</option_version_build>
-    <option_version_company></option_version_company>
+    <option_version_build>1</option_version_build>
+    <option_version_company>Ármann Haraldsson</option_version_company>
     <option_version_copyright></option_version_copyright>
-    <option_version_description></option_version_description>
+    <option_version_description>Play Blackjack for fun</option_version_description>
     <option_version_major>1</option_version_major>
     <option_version_minor>0</option_version_minor>
     <option_version_product></option_version_product>
@@ -329,10 +329,10 @@
     <option_win8_texture_page>1024</option_win8_texture_page>
     <option_win8_wide_logo>Configs\Default\Windows8\logos\logo310.png</option_win8_wide_logo>
     <option_windowcolor>clBlack</option_windowcolor>
-    <option_windows_build_version>6</option_windows_build_version>
-    <option_windows_company_info></option_windows_company_info>
+    <option_windows_build_version>1</option_windows_build_version>
+    <option_windows_company_info>Ármann Haraldsson</option_windows_company_info>
     <option_windows_copyright_info></option_windows_copyright_info>
-    <option_windows_description_info></option_windows_description_info>
+    <option_windows_description_info>Play Blackjack for fun</option_windows_description_info>
     <option_windows_enable_steam>0</option_windows_enable_steam>
     <option_windows_game_icon>Configs\Default\windows\runner_icon.ico</option_windows_game_icon>
     <option_windows_license>Configs\Default\windows\License.txt</option_windows_license>
